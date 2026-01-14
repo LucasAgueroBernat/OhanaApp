@@ -1,0 +1,84 @@
+/* Estilos generales */
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #fff;
+}
+
+/* Contenedor principal */
+.contenedor {
+  max-width: 1200px;
+  margin: auto;
+  padding: 20px;
+}
+
+/* Formularios */
+form {
+  display: grid;
+  gap: 10px;
+}
+
+form input,
+form select,
+form button {
+  padding: 8px;
+  font-size: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+}
+
+/* Botones */
+button {
+  background: #66a6ff;
+  color: white;
+  border: none;
+  cursor: pointer;
+  transition: background 0.3s;
+}
+
+button:hover {
+  background: #4a90e2;
+}
+
+/* Tablero de tareas */
+.tablero {
+  display: grid;
+  grid-template-columns: 1fr 1fr 1fr;
+  gap: 16px;
+}
+
+/* Secciones de tareas */
+section {
+  background: #f9f9f9;
+  padding: 12px;
+  border-radius: 8px;
+}
+
+section h2 {
+  margin-top: 0;
+  font-size: 1.2rem;
+}
+
+/* Responsividad */
+@media (max-width: 900px) {
+  .tablero {
+    grid-template-columns: 1fr 1fr;
+  }
+}
+
+@media (max-width: 600px) {
+  .tablero {
+    grid-template-columns: 1fr;
+  }
+
+  form input,
+  form select,
+  form button {
+    width: 100%;
+  }
+
+  button {
+    margin-top: 8px;
+  }
+}
+

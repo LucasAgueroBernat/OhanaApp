@@ -1,0 +1,16 @@
+[
+  {
+    "nombre": "lucas",
+    "password": "1234"
+  },
+  {
+    "nombre": "Papá",
+    "password": "1234",
+    "fondo": "linear-gradient(135deg, #fceabb, #f8b500)"
+  },
+  {
+    "nombre": "Mamá",
+    "password": "1234",
+    "fondo": "linear-gradient(135deg, #fceabb, #f8b500)"
+  }
+]
