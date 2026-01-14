@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
 import "./App.css";
+import React from "react";
 
 const BASE_URL = "/tareas"; // proxy al backend
 
@@ -31,7 +32,6 @@ function App() {
     });
     const data = await res.json();
     if (res.ok) {
-      // guardo también la contraseña usada para poder editar perfil
       setUsuario({ ...data.usuario, password });
       setFondo(data.usuario.fondo || "white");
       setNombre("");
@@ -74,9 +74,7 @@ function App() {
         }),
       });
 
-      const text = await res.text(); // debug: ver si llega HTML
-      console.log("Respuesta del servidor (editar):", text);
-
+      const text = await res.text();
       if (!res.ok) {
         alert("Error al actualizar perfil");
         return;
@@ -85,7 +83,6 @@ function App() {
       const data = JSON.parse(text);
       setUsuario({
         ...data.usuario,
-        // si no cambió contraseña, mantengo la actual en memoria
         password: nuevoPassword || usuario.password,
       });
       setNuevoNombre("");
@@ -105,7 +102,6 @@ function App() {
       body: JSON.stringify({ nombre: usuario.nombre, fondo: nuevoFondo }),
     });
 
-    // si el backend devuelve HTML por error, evito el crash
     const text = await res.text();
     try {
       const data = JSON.parse(text);
@@ -186,7 +182,12 @@ function App() {
     return (
       <li
         key={t.id}
-        style={{ margin: "8px 0", padding: "10px", background: "#f9f9f9", borderRadius: 8 }}
+        style={{
+          margin: "8px 0",
+          padding: "10px",
+          background: "#f9f9f9",
+          borderRadius: 8,
+        }}
       >
         <div>
           <strong>{t.titulo}</strong> — <em>{t.categoria}</em>
@@ -195,18 +196,30 @@ function App() {
         </div>
         <div style={{ marginTop: 8 }}>
           <button onClick={() => setEstado(t.id, "pendiente")}>Pendiente</button>
-          <button onClick={() => setEstado(t.id, "en curso")} style={{ marginLeft: 6 }}>
+          <button
+            onClick={() => setEstado(t.id, "en curso")}
+            style={{ marginLeft: 6 }}
+          >
             En curso
           </button>
-          <button onClick={() => setEstado(t.id, "completada")} style={{ marginLeft: 6 }}>
+          <button
+            onClick={() => setEstado(t.id, "completada")}
+            style={{ marginLeft: 6 }}
+          >
             Completada
           </button>
-          <button onClick={() => eliminarTarea(t.id)} style={{ marginLeft: 6 }}>
+          <button
+            onClick={() => eliminarTarea(t.id)}
+            style={{ marginLeft: 6 }}
+          >
             Eliminar
           </button>
         </div>
         <div style={{ marginTop: 8 }}>
-          <select value={t.responsable} onChange={(e) => setResponsableAPI(t.id, e.target.value)}>
+          <select
+            value={t.responsable}
+            onChange={(e) => setResponsableAPI(t.id, e.target.value)}
+          >
             <option value="">Sin asignar</option>
             {miembros.map((m) => (
               <option key={m} value={m}>
@@ -224,12 +237,23 @@ function App() {
   const completadas = tareas.filter((t) => t.estado === "completada");
 
   return (
-    <div style={{ margin: "20px", fontFamily: "Arial", background: fondo, minHeight: "100vh" }}>
+    <div
+      style={{
+        margin: "20px",
+        fontFamily: "Arial",
+        background: fondo,
+        minHeight: "100vh",
+      }}
+    >
       {!usuario ? (
         <div style={{ maxWidth: 420, margin: "60px auto" }}>
           <h1>Ingreso a Ohana 🏡</h1>
           <form onSubmit={login} style={{ display: "grid", gap: 10 }}>
-            <input value={nombre} onChange={(e) => setNombre(e.target.value)} placeholder="Usuario" />
+            <input
+              value={nombre}
+              onChange={(e) => setNombre(e.target.value)}
+              placeholder="Usuario"
+            />
             <input
               type="password"
               value={password}
@@ -245,7 +269,9 @@ function App() {
       ) : (
         <div>
           <h1>Tareas del Hogar 🏡 — Bienvenido {usuario.nombre}</h1>
-          <button onClick={logout} style={{ marginBottom: 20 }}>Cerrar sesión</button>
+          <button onClick={logout} style={{ marginBottom: 20 }}>
+            Cerrar sesión
+          </button>
 
           {/* Editar perfil */}
           <form
@@ -329,6 +355,4 @@ function App() {
 }
 
 export default App;
-
-
 
